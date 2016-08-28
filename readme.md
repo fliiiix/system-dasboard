@@ -2,4 +2,4 @@ system-dasboard
 ==================
 
 
-Just do it.
+A highly customized status dashboard for my home network.

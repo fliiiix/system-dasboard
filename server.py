@@ -1,5 +1,6 @@
 from bottle import route, get, post, run, template, request, static_file
 import sqlite3
+import json
 
 con = sqlite3.connect('dasboard.db')
 
@@ -12,6 +13,32 @@ def create_dns_status():
     con.commit()
     return 'ok\n'
 
+class SetEncoder(json.JSONEncoder):
+  def default(self, obj):
+    if isinstance(obj, set):
+      return list(obj)
+    return json.JSONEncoder.default(self, obj)
+
+@get('/dns_status')
+def get_dns_status():
+  cursor = con.cursor()
+
+  t = ('aegaeon.l33t.network',)
+  cursor.execute('SELECT * FROM dns_status WHERE host_id=? ORDER BY created_at DESC', t)
+  host1 = cursor.fetchone()
+
+  t = ('janus.l33t.network',)
+  cursor.execute('SELECT * FROM dns_status WHERE host_id=? ORDER BY created_at DESC', t)
+  host2 = cursor.fetchone()
+
+  data = {host1, host2}
+
+  return json.dumps(data, cls=SetEncoder)
+
+
+"""
+should be probably removed
+"""
 @get('/createdb')
 def createdb():
     cursor = con.cursor()
@@ -28,7 +55,9 @@ def createdb():
     con.commit()
     return 'yo'
 
-
+"""
+Serve the web ui
+"""
 @route('/<filepath:path>')
 def server_static(filepath):
     return static_file(filepath, root='./web/dist')

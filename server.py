@@ -1,4 +1,4 @@
-from bottle import route, get, post, run, template, request, static_file
+from bottle import route, get, post, redirect, run, template, request, static_file
 import sqlite3
 import json
 
@@ -54,6 +54,10 @@ def createdb():
                                                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)''')
     con.commit()
     return 'yo'
+
+@get('/')
+def index():
+  redirect('/index.html')
 
 """
 Serve the web ui

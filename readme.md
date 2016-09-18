@@ -1,4 +1,4 @@
-system-dasboard
+system-dashboard
 ==================
 
 
@@ -21,3 +21,38 @@ tar xzv -C system-dashboard -f system-dashboard-v.0.0.1.tar.gz
 ```
 
 Probably you need to chown it to the right user.
+
+
+## Development
+
+### Backend Python
+
+Install with:
+
+```
+virtualenv env
+. env/bin/activate
+pip install -r requirements.txt
+```
+
+Run with:
+
+```
+python server.py
+```
+
+### Frontend 
+
+Install with:
+
+```
+cd web
+npm install
+node_modules/.bin/bower install
+node_modules/.bin/gulp build
+```
+Run with:
+
+```
+node_modules/.bin/gulp watch
+```

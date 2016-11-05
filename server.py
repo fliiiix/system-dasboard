@@ -2,7 +2,7 @@ from bottle import route, get, post, redirect, run, template, request, static_fi
 import sqlite3
 import json
 
-con = sqlite3.connect('dasboard.db')
+con = sqlite3.connect('dashboard.db')
 
 @post('/')
 def create_dns_status():

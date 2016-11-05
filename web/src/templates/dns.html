@@ -1,3 +1,5 @@
+<style type="text/css">
+</style>
 <div class="row">
 	<div class="col-lg-12">
     <h1>DNS</h1>
@@ -6,20 +8,28 @@
 
 <div class="row" ng-controller="Dns">
   <div class="col-lg-6">
-    <rd-widget>
-      <rd-widget-header icon="fa-tasks" title="Servers">
-      </rd-widget-header>
-      <rd-widget-body classes="medium no-padding">
-        <div class="table-responsive">
-          <table class="table">
-            <tbody>
-              <tr ng-repeat="host in hosts" ng-click="showDetails(host)"><td>{{host[1]}}</td><td>192.168.17.5</td><td><span class="text-success"><i class="fa fa-check"></i></span></td></tr>
-              <!--<tr><td>aegaeon.l33t.network</td><td>192.168.17.6</td><td><span class="text-danger"><i class="fa fa-warning"></i></span></td></tr>-->
-            </tbody>
-          </table>
-        </div>      
-      </rd-widget-body>
-    </rd-widget>
+    <div>
+      <rd-widget>
+        <rd-widget-header icon="fa-tasks" title="Servers">
+            <div class="pull-right">
+              <a ng-click="showEdit()"><i class="fa fa-cog" aria-hidden="true"></i>Manage</a>
+            </div>
+        </rd-widget-header>
+        <rd-widget-body classes="medium no-padding">
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+                <tr ng-repeat="host in hosts" ng-click="showDetails(host)">
+                  <td>{{host[1]}}</td>
+                  <td>192.168.17.5</td>
+                  <td><span class="text-success"><i class="fa fa-check"></i></span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>      
+        </rd-widget-body>
+      </rd-widget>
+    </div>
   </div>
   <div class="col-lg-6">
     <rd-widget>
@@ -30,27 +40,33 @@
             <tbody>
               <tr>
                 <td>Hostname</td>
-                <td>{{detail[1]}}</td>
+                <td ng-show="details_show">{{detail[1]}}</td>
+                <td ng-hide="details_show"><input type="text" name="hostname" class="form-control input-sm ng-scope" ng-model="dns.hostname" required></td>
               </tr>
               <tr>
                 <td>Hostfile hash (md5)</td>
-                <td>{{detail[2]}}</td>
+                <td ng-show="details_show">{{detail[2]}}</td>
+                <td ng-hide="details_show"><input type="text" name="hostname_hash" class="form-control input-sm ng-scope" ng-model="dns.hostname_hash" required></td>
               </tr>
               <tr>
                 <td>resolve-file hash (md5)</td>
-                <td>{{detail[3]}}</td>
+                <td ng-show="details_show">{{detail[3]}}</td>
+                <td ng-hide="details_show"><input type="text" name="resolve_file_hash" class="form-control input-sm ng-scope" ng-model="dns.resolve_file_hash" required></td>
               </tr>
               <tr>
                 <td>config-file hash (md5)</td>
-                <td>{{detail[4]}}</td>
+                <td ng-show="details_show">{{detail[4]}}</td>
+                <td ng-hide="details_show"><input type="text" name="config_file_hash" class="form-control input-sm ng-scope" ng-model="dns.config_file_hash" required></td>
               </tr>
               <tr>
                 <td>local IP</td>
-                <td>{{detail[5]}}</td>
+                <td ng-show="details_show">{{detail[5]}}</td>
+                <td ng-hide="details_show"><input type="text" name="localip" class="form-control input-sm ng-scope" ng-model="dns.localip" required></td>
               </tr>
               <tr>
                 <td>remote IP</td>
-                <td>{{detail[6]}}</td>
+                <td ng-show="details_show">{{detail[6]}}</td>
+                <td ng-hide="details_show"><input type="text" name="remote_ip" class="form-control input-sm ng-scope" ng-model="dns.remote_ip" required></td>
               </tr>
             </tbody>
           </table>

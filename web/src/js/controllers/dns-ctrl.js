@@ -17,6 +17,13 @@ function Dns($scope, $http) {
     /* show details on click */
     $scope.showDetails = function(host) {
         console.log(host);
+        $scope.details_show = true;
         $scope.detail = host;
+    }
+
+    /* Show the view to configure the valid values */
+    $scope.showEdit = function() {
+        console.log("logloglog");
+        $scope.details_show = false;
     }
 }

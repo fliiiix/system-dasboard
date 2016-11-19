@@ -36,6 +36,15 @@ def get_dns_status():
   return json.dumps(data, cls=SetEncoder)
 
 
+@post('/dns_status')
+def post_dns_status():
+  cursor = con.cursor()
+  # some validation would be nice xD
+  cursor.execute('INSERT INTO dns_status_expected_values (resolv_md5, remote_ip, local_ip, config_md5, hosts_md5) VALUES(?, ?, ?, ?, ?)', request.json.values())
+  con.commit()
+  'ok'
+
+
 """
 should be probably removed
 """
@@ -46,6 +55,17 @@ def createdb():
     cursor.execute('''CREATE TABLE dns_status (
                                                id INTEGER PRIMARY KEY AUTOINCREMENT,
                                                host_id VARCHAR(100),
+                                               hosts_md5 VARCHAR(32), 
+                                               resolv_md5 VARCHAR(32), 
+                                               config_md5 VARCHAR(32), 
+                                               local_ip VARCHAR(15), 
+                                               remote_ip VARCHAR(15),
+                                               created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)''')
+    con.commit()
+
+    cursor.execute('DROP TABLE IF EXISTS dns_status_expected_values')
+    cursor.execute('''CREATE TABLE dns_status_expected_values (
+                                               id INTEGER PRIMARY KEY AUTOINCREMENT,
                                                hosts_md5 VARCHAR(32), 
                                                resolv_md5 VARCHAR(32), 
                                                config_md5 VARCHAR(32), 

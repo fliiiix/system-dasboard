@@ -33,15 +33,18 @@
   </div>
   <div class="col-lg-6">
     <rd-widget>
-      <rd-widget-header icon="fa-info" title="Details {{detail[1]}}"></rd-widget-header>
+      <rd-widget-header icon="fa-info" title="Details {{detail[1]}}">
+        <div ng-hide="details_show" class="pull-right">
+          <a ng-click="saveEdit()"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</a>
+        </div>
+      </rd-widget-header>
       <rd-widget-body classes="medium no-padding">
         <div class="table-responsive">
-          <table class="table">
+          <table class="table" style="margin-bottom:0px;">
             <tbody>
-              <tr>
+              <tr ng-show="details_show">
                 <td>Hostname</td>
-                <td ng-show="details_show">{{detail[1]}}</td>
-                <td ng-hide="details_show"><input type="text" name="hostname" class="form-control input-sm ng-scope" ng-model="dns.hostname" required></td>
+                <td>{{detail[1]}}</td>
               </tr>
               <tr>
                 <td>Hostfile hash (md5)</td>
